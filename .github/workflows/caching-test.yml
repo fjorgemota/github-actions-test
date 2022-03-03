@@ -21,5 +21,5 @@ jobs:
                 echo "------" >> dependencies
                 git rev-parse HEAD >> dependencies
                 git rev-parse --abbrev-ref HEAD >> dependencies
-            - Name: Print dependencies
+            - name: Print dependencies
               run: cat dependencies
