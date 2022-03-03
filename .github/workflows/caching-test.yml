@@ -15,6 +15,7 @@ jobs:
                   key: ${{ runner.os }}-dep-${{ hashFiles('lock') }}
                   restore-keys: |
                       ${{ runner.os }}-dep-${{ hashFiles('lock') }}
+                      ${{ runner.os }}-dep
             - name: Install dependencies
               if: steps.cache-lock.outputs.cache-hit != 'true'
               run: |
