@@ -1,0 +1,25 @@
+name: Caching Test
+
+on:
+    push
+
+jobs:
+    hookdocs:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v2
+              id: cache-lock
+              with:
+                  path: dependencies
+                  key: ${{ runner.os }}-dep-${{ hashFiles('lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-dep-${{ hashFiles('lock') }}
+            - name: Install dependencies
+              if: steps.cache-lock.outputs.cache-hit != 'true'
+              run: |
+                echo "------" >> dependencies
+                git rev-parse HEAD >> dependencies
+                git rev-parse --abbrev-ref HEAD >> dependencies
+            - Name: Print dependencies
+              run: cat dependencies
